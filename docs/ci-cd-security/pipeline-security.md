@@ -522,6 +522,644 @@ Securing CI/CD pipelines requires a comprehensive approach that addresses people
 
 By implementing these controls, organizations can significantly reduce the risk of supply chain attacks originating through their CI/CD pipelines, protecting both their own systems and their customers.
 
-## Conclusion
+## Pipeline Security Assessment Guide
 
-By implementing these security measures, organizations can significantly reduce the risk of security breaches in their CI/CD pipelines. Continuous improvement and vigilance are essential to maintaining a secure software delivery process.
+Conducting regular security assessments of your CI/CD pipelines is essential for maintaining a secure software supply chain. Use this guide to evaluate your current security posture.
+
+### Assessment Methodology
+
+```mermaid
+flowchart LR
+    classDef phase fill:#3498db, stroke:#333, stroke-width:1px, color:white
+    classDef activity fill:#2ecc71, stroke:#333, stroke-width:1px
+    
+    A[Pipeline Security Assessment]:::phase --> B[Define Scope]:::activity
+    B --> C[Document Architecture]:::activity
+    C --> D[Identify Assets]:::activity
+    D --> E[Identify Threats]:::activity
+    E --> F[Test Controls]:::activity
+    F --> G[Remediate Gaps]:::activity
+    G --> H[Verify Fixes]:::activity
+```
+
+### CI/CD Security Audit Checklist
+
+Use this comprehensive checklist to audit your CI/CD pipeline security:
+
+#### Access Controls
+
+- [ ] Multi-factor authentication enforced for all pipeline system accounts
+- [ ] Role-based access control implemented with least privilege
+- [ ] Regular access audits conducted and documented
+- [ ] Service account permissions limited to required resources
+- [ ] Temporary elevated access process implemented for maintenance
+- [ ] Automated offboarding workflow for departing team members
+- [ ] IP allowlisting for administrative access
+
+#### Pipeline Configuration
+
+- [ ] All pipeline definitions stored as code in version control
+- [ ] Pipeline configuration changes require peer review
+- [ ] Branch protection rules prevent direct commits to protected branches
+- [ ] Automated linting/validation of CI/CD configuration files
+- [ ] Pipeline templates use secure defaults
+- [ ] Regular audits for unexpected pipeline configuration changes
+- [ ] Secrets used in pipelines are rotated regularly
+
+#### Build Environment Security
+
+- [ ] Build environments are ephemeral and destroyed after use
+- [ ] Each build runs in an isolated environment
+- [ ] Network access is restricted during builds
+- [ ] Base images are regularly updated with security patches
+- [ ] Principle of least privilege applied to build containers
+- [ ] Read-only file systems used where possible
+- [ ] Host security controls applied to build servers
+
+#### Secret Management
+
+- [ ] No secrets stored in source code or pipeline definitions
+- [ ] Secrets managed through dedicated secret management service
+- [ ] Secrets accessed through short-lived, just-in-time tokens
+- [ ] Secret access is logged and monitored
+- [ ] Secrets are automatically rotated
+- [ ] Pipeline outputs are scanned for accidentally leaked secrets
+- [ ] Secret injection happens at runtime, not build time
+
+#### Dependency Security
+
+- [ ] All dependencies are scanned for vulnerabilities before use
+- [ ] Dependency sources are verified (checksums, signatures)
+- [ ] Private artifact repositories used for critical dependencies
+- [ ] Dependency confusion attacks mitigated via configuration
+- [ ] Dependency updates trigger security scans
+- [ ] SBOMs generated for all builds
+- [ ] Dependency caching is secure and tampering is detectable
+
+#### Build Integrity
+
+- [ ] Source code integrity verified before build (signatures)
+- [ ] Reproducible builds implemented where possible
+- [ ] Build provenance captured and stored securely
+- [ ] All artifacts are signed
+- [ ] Signatures verified before deployment
+- [ ] Binary transparency logs maintained
+- [ ] Comparison of artifacts across different build environments
+
+#### Monitoring and Logging
+
+- [ ] Comprehensive logging of all pipeline activities
+- [ ] Pipeline logs are immutable and securely stored
+- [ ] Anomaly detection implemented for build patterns
+- [ ] Alerts configured for security-relevant events
+- [ ] Build time monitoring for unexpected deviations
+- [ ] Resource utilization monitored for abnormal patterns
+- [ ] Log correlation across pipeline stages
+
+#### Incident Response
+
+- [ ] Incident response plan specific to CI/CD compromise
+- [ ] Pipeline-specific playbooks for common scenarios
+- [ ] Regular tabletop exercises for pipeline security incidents
+- [ ] Capabilities to revoke compromised artifacts
+- [ ] Process to rapidly patch compromised systems
+- [ ] Communication plan for supply chain security incidents
+- [ ] Post-incident review process
+
+## Pipeline Security Architecture Patterns
+
+### Pattern 1: Defense in Depth Pipeline Architecture
+
+```mermaid
+flowchart TD
+    classDef zone1 fill:#cfe2f3, stroke:#333, stroke-width:1px
+    classDef zone2 fill:#d9ead3, stroke:#333, stroke-width:1px
+    classDef zone3 fill:#fff2cc, stroke:#333, stroke-width:1px
+    classDef zone4 fill:#f4cccc, stroke:#333, stroke-width:1px
+    
+    subgraph "Zone 1: Source Control"
+        A[Git Repository] -->|Code Changes| B[PR Validation]
+        B -->|Approved Changes| C[Protected Branch]
+    end
+    
+    subgraph "Zone 2: Build Triggering"
+        D[Webhook Receiver] -->|Validated Event| E[Build Orchestrator]
+        E -->|Job Assignment| F[Build Agent Pool]
+    end
+    
+    subgraph "Zone 3: Build Execution"
+        G[Ephemeral Build Container] -->|Execute Steps| H[Artifact Creation]
+        I[Dependency Cache] -->|Verified Deps| G
+        J[Secrets Service] -->|Temp Credentials| G
+    end
+    
+    subgraph "Zone 4: Artifact Management"
+        K[Artifact Repository] -->|Promotion| L[Staging Repository]
+        L -->|Verified & Approved| M[Production Repository]
+    end
+    
+    C -->|Trigger| D
+    F -->|Provision| G
+    H -->|Store| K
+    
+    classDef zone1 zone1
+    classDef zone2 zone2
+    classDef zone3 zone3
+    classDef zone4 zone4
+```
+
+**Security Controls by Zone:**
+
+**Zone 1: Source Control**
+- Signed commits
+- Multi-factor authentication
+- Branch protection rules
+- Required code reviews
+- Status checks
+
+**Zone 2: Build Triggering**
+- Event validation
+- Rate limiting
+- IP allowlisting
+- Webhook secrets
+
+**Zone 3: Build Execution**
+- Ephemeral environments
+- Container security scanning
+- Runtime isolation
+- Just-in-time credentials
+- Dependency verification
+
+**Zone 4: Artifact Management**
+- Artifact signing
+- Security scanning
+- Signature verification
+- SBOM validation
+- Promotion approvals
+
+### Pattern 2: Secure Multi-Environment Pipeline
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant SCM as Source Control
+    participant CI as CI System
+    participant Sec as Security Gates
+    participant Reg as Registry
+    participant Test as Test Environment
+    participant Prod as Production
+    
+    Dev->>SCM: Commit Code
+    SCM->>CI: Trigger Pipeline
+    
+    CI->>Sec: Security Scan #1<br>(SAST, SCA)
+    Sec->>CI: Pass/Fail
+    
+    CI->>Reg: Build & Push<br>Development Artifact
+    
+    CI->>Test: Deploy to Test
+    
+    CI->>Sec: Security Scan #2<br>(DAST, IAST)
+    Sec->>CI: Pass/Fail
+    
+    CI->>Reg: Promote & Sign<br>Release Candidate
+    
+    CI->>Sec: Final Security Review
+    Sec->>CI: Approval
+    
+    CI->>Prod: Controlled Deployment
+    
+    Note over CI,Sec: Security gates prevent<br>progression if issues found
+```
+
+## Practical Implementation Guide
+
+### Implementing Pipeline Security in GitHub Actions
+
+```yaml
+# .github/workflows/secure-pipeline.yml
+name: Secure CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # SECURITY GATE 1: Source Validation
+  validate-source:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      - name: Verify commit signatures
+        run: |
+          git verify-commit HEAD
+          
+      - name: Lint code
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+  # SECURITY GATE 2: Dependency Security
+  dependency-check:
+    needs: validate-source
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Check for vulnerable dependencies
+        run: npm audit --audit-level=high
+        
+      - name: Generate SBOM
+        uses: cyclonedx/gh-node-module-generatebom@master
+        with:
+          path: .
+          output: sbom.xml
+          
+  # SECURITY GATE 3: SAST and Secret Scanning
+  security-scans:
+    needs: dependency-check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        
+      - name: Secret scanning
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+  # SECURITY GATE 4: Secure Build
+  build:
+    needs: security-scans
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write # For OIDC signing
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      
+      - name: Build application
+        run: |
+          npm ci
+          npm run build
+      
+      - name: Sign artifacts
+        uses: sigstore/cosign-installer@main
+      
+      - name: Build and push container
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/myorg/myapp:${{ github.sha }}
+      
+      - name: Sign container with keyless signing
+        run: |
+          cosign sign ghcr.io/myorg/myapp:${{ github.sha }}
+          
+  # SECURITY GATE 5: Deployment Security
+  deploy-staging:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    environment: staging
+    steps:
+      - name: Verify artifact signature
+        uses: sigstore/cosign-installer@main
+        
+      - name: Verify signature
+        run: |
+          cosign verify ghcr.io/myorg/myapp:${{ github.sha }}
+      
+      - name: Deploy to staging
+        run: |
+          # Deployment script with signature validation
+```
+
+### Implementing Pipeline Security in GitLab CI
+
+```yaml
+# .gitlab-ci.yml
+stages:
+  - validate
+  - scan
+  - build
+  - test
+  - sign
+  - deploy
+
+variables:
+  SECURE_ANALYZERS_PREFIX: "registry.gitlab.com/security-products"
+  SECURE_CI_OPT_FLAGS: "true"
+
+# Stage: Validate
+validate-pipeline:
+  stage: validate
+  image: alpine:latest
+  script:
+    - ci-lint .gitlab-ci.yml
+
+# Security Scans
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Security/Container-Scanning.gitlab-ci.yml
+
+# Build with provenance
+build:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - echo "${CI_REGISTRY_PASSWORD}" | docker login -u "${CI_REGISTRY_USER}" --password-stdin $CI_REGISTRY
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    # Generate provenance data
+    - |
+      cat > provenance.json <<EOF
+      {
+        "buildType": "gitlab-ci",
+        "builder": {
+          "id": "${CI_SERVER_URL}/${CI_PROJECT_PATH}/-/pipelines/${CI_PIPELINE_ID}"
+        },
+        "recipe": {
+          "type": "Dockerfile",
+          "uri": "git+${CI_REPOSITORY_URL}@${CI_COMMIT_SHA}"
+        },
+        "metadata": {
+          "buildInvocationId": "${CI_PIPELINE_ID}",
+          "buildStartedOn": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+        }
+      }
+      EOF
+    - cat provenance.json | base64 > provenance.b64
+  artifacts:
+    paths:
+      - provenance.b64
+
+# Sign artifacts
+sign-artifacts:
+  stage: sign
+  image: alpine:latest
+  script:
+    - apk add --no-cache cosign
+    - cosign sign --key ${COSIGN_KEY_PATH} $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - cosign attach attestation --key ${COSIGN_KEY_PATH} --type provenance $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --attestation provenance.b64
+  dependencies:
+    - build
+
+# Deploy with verification
+deploy:
+  stage: deploy
+  image: alpine:latest
+  environment: production
+  script:
+    - apk add --no-cache cosign
+    - cosign verify --key ${COSIGN_PUB_KEY_PATH} $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    # Deploy only if signature is valid
+    - echo "Deploying verified container..."
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+```
+
+### Implementing Pipeline Security in Azure DevOps
+
+```yaml
+# azure-pipelines.yml
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: SecureValidation
+  jobs:
+  - job: ValidateSource
+    steps:
+    - checkout: self
+      persistCredentials: true
+      fetchDepth: 0
+      
+    - script: |
+        # Verify GPG signatures if configured
+        git verify-commit HEAD || echo "Commit signature verification not configured"
+      displayName: 'Verify commit signatures'
+
+    - task: WhiteSource@21
+      displayName: 'Scan dependencies'
+      inputs:
+        cwd: '$(System.DefaultWorkingDirectory)'
+        
+- stage: SecureBuild
+  dependsOn: SecureValidation
+  jobs:
+  - job: BuildWithProvenance
+    steps:
+    - task: Docker@2
+      displayName: 'Build and Push'
+      inputs:
+        command: buildAndPush
+        containerRegistry: 'myregistry'
+        repository: 'myapp'
+        tags: '$(Build.BuildId)'
+        
+    - script: |
+        # Generate provenance data
+        cat > provenance.json <<EOF
+        {
+          "buildType": "azure-devops",
+          "builder": {
+            "id": "$(System.TeamFoundationCollectionUri)/$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)"
+          },
+          "recipe": {
+            "type": "Dockerfile",
+            "uri": "git+$(Build.Repository.Uri)@$(Build.SourceVersion)"
+          },
+          "metadata": {
+            "buildInvocationId": "$(Build.BuildId)",
+            "buildStartedOn": "$(Build.QueuedOn)"
+          }
+        }
+        EOF
+      displayName: 'Generate build provenance'
+      
+    - task: AzureKeyVault@2
+      displayName: 'Get signing key from vault'
+      inputs:
+        azureSubscription: 'my-subscription'
+        KeyVaultName: 'my-keyvault'
+        SecretsFilter: 'signing-key'
+        
+    - script: |
+        # Install Cosign
+        curl -LO https://github.com/sigstore/cosign/releases/download/v1.13.0/cosign-linux-amd64
+        chmod +x cosign-linux-amd64
+        mv cosign-linux-amd64 /usr/local/bin/cosign
+        
+        # Sign the container
+        echo "$(signing-key)" > cosign.key
+        COSIGN_PASSWORD="" cosign sign --key cosign.key myregistry.azurecr.io/myapp:$(Build.BuildId)
+        
+        # Clean up
+        rm -f cosign.key
+      displayName: 'Sign container image'
+
+- stage: SecureDeployment
+  dependsOn: SecureBuild
+  jobs:
+  - job: VerifyAndDeploy
+    steps:
+    - task: AzureKeyVault@2
+      displayName: 'Get verification key'
+      inputs:
+        azureSubscription: 'my-subscription'
+        KeyVaultName: 'my-keyvault'
+        SecretsFilter: 'verification-key'
+        
+    - script: |
+        # Install Cosign
+        curl -LO https://github.com/sigstore/cosign/releases/download/v1.13.0/cosign-linux-amd64
+        chmod +x cosign-linux-amd64
+        mv cosign-linux-amd64 /usr/local/bin/cosign
+        
+        # Verify signature
+        echo "$(verification-key)" > cosign.pub
+        cosign verify --key cosign.pub myregistry.azurecr.io/myapp:$(Build.BuildId)
+        
+        # Deploy if verification succeeds
+        echo "Deploying verified container..."
+        
+        # Clean up
+        rm -f cosign.pub
+      displayName: 'Verify signature and deploy'
+```
+
+## Advanced Pipeline Security Techniques
+
+### Binary Authorization and Policy Enforcement
+
+Binary authorization enforces deployment-time security policies based on container images:
+
+```mermaid
+flowchart LR
+    classDef primary fill:#3498db, stroke:#333, stroke-width:1px, color:white
+    classDef secondary fill:#2ecc71, stroke:#333, stroke-width:1px
+    classDef blocked fill:#e74c3c, stroke:#333, stroke-width:1px, color:white
+    classDef passed fill:#2ecc71, stroke:#333, stroke-width:1px
+    
+    A[Artifact Repository]:::primary --> B[Binary Authorization]:::primary
+    B --> C{Policy Check}:::primary
+    
+    D[Required Signatures]:::secondary --> C
+    E[Vulnerability Thresholds]:::secondary --> C
+    F[Build Provenance]:::secondary --> C
+    G[SBOM Requirements]:::secondary --> C
+    
+    C -->|Reject| H[Deployment Blocked]:::blocked
+    C -->|Accept| I[Deployment Allowed]:::passed
+```
+
+Key aspects of binary authorization:
+
+1. **Policy Definition**: Define which attestations are required for deployment
+2. **Attestation Creation**: Generate signed attestations during the build process
+3. **Policy Enforcement**: Verify attestations before deployment
+4. **Break Glass Procedures**: Define exception processes for emergencies
+
+### Pipeline Security Monitoring
+
+```mermaid
+graph TD
+    classDef source fill:#3498db, stroke:#333, stroke-width:1px, color:white
+    classDef processing fill:#f39c12, stroke:#333, stroke-width:1px
+    classDef storage fill:#2ecc71, stroke:#333, stroke-width:1px
+    classDef analysis fill:#9b59b6, stroke:#333, stroke-width:1px, color:white
+    
+    A[Build Logs]:::source --> X[Log Aggregation]:::processing
+    B[Access Events]:::source --> X
+    C[Security Scans]:::source --> X
+    D[Deployment Events]:::source --> X
+    
+    X --> E[Security Data Lake]:::storage
+    
+    E --> F[Anomaly Detection]:::analysis
+    E --> G[Compliance Reporting]:::analysis
+    E --> H[Threat Hunting]:::analysis
+    E --> I[Incident Investigation]:::analysis
+    
+    F --> J[Alert Generation]
+    G --> K[Compliance Dashboard]
+    H --> L[Threat Intelligence]
+    I --> M[Incident Response]
+```
+
+Implementation considerations:
+
+1. **Centralized Logging**: Collect logs from all pipeline components
+2. **Correlation**: Link events across different pipeline stages
+3. **Baseline Establishment**: Understand normal pipeline behavior
+4. **Detection Rules**: Create alerts for suspicious patterns
+5. **Visualization**: Build dashboards for pipeline security metrics
+
+## Conclusion and Recommended Actions
+
+Securing CI/CD pipelines requires a comprehensive approach that addresses people, processes, and technology. Organizations should:
+
+1. **Assess your current state** using the audit checklist provided
+2. **Create a roadmap** for implementing missing controls
+3. **Prioritize high-impact changes** such as access controls and secret management
+4. **Conduct regular security testing** of the pipeline itself
+5. **Train developers and operations teams** on secure CI/CD practices
+6. **Implement continuous monitoring** to detect anomalies and security issues
+7. **Regularly review and update** security controls as threats evolve
+
+By implementing these controls, organizations can significantly reduce the risk of supply chain attacks originating through their CI/CD pipelines, protecting both their own systems and their customers.
+
+!!! info "Additional Resources"
+    - [SLSA Framework](https://slsa.dev/)
+    - [CNCF Software Supply Chain Best Practices](https://github.com/cncf/tag-security/tree/main/supply-chain-security)
+    - [OWASP CI/CD Security Top 10](https://owasp.org/www-project-top-10-ci-cd-security-risks/)
+    - [Cloud Native Buildpacks](https://buildpacks.io/)
+    - [In-toto Framework](https://in-toto.io/)
+    - [NIST SP 800-204C: Implementation of DevSecOps](https://csrc.nist.gov/publications/detail/sp/800-204c/draft)
