@@ -37,20 +37,19 @@ extra_javascript:
 theme:
   name: material
   palette:
-    # Light mode
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: indigo
-      accent: blue
+    # Light mode (default)
+    - scheme: default
+      primary: teal
+      accent: deep orange
       toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode    # Dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: blue
-      accent: indigo
+        icon: material/shield-lock
+        name: Switch to dark mode
+    # Dark mode
+    - scheme: slate
+      primary: cyan
+      accent: deep orange
       toggle:
-        icon: material/brightness-4
+        icon: material/shield-lock-outline
         name: Switch to light mode
   font:
     text: Roboto

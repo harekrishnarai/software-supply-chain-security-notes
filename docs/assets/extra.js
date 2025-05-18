@@ -2,12 +2,14 @@
 
 // Enable dark mode toggle
 document.addEventListener('DOMContentLoaded', function() {
-  // Check if dark mode is preferred
-  const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+  // Check for user's saved preference first
+  const savedTheme = localStorage.getItem('darkMode');
   
-  // Set theme based on preference
-  if (prefersDarkScheme.matches) {
+  // If a preference is saved, use that, otherwise default to light mode
+  if (savedTheme === 'true') {
     document.body.setAttribute('data-md-color-scheme', 'slate');
+  } else {
+    document.body.setAttribute('data-md-color-scheme', 'default');
   }
   
   // Add keyboard shortcut for toggling dark mode (Alt+T)
@@ -47,8 +49,21 @@ document.addEventListener('DOMContentLoaded', function() {
   script.setAttribute('crossorigin', 'anonymous');
   
   script.onload = function() {
-    // Configure mermaid with better options
+    // Configure mermaid with better options based on current theme
+    const isDarkMode = document.body.getAttribute('data-md-color-scheme') === 'slate';
     mermaid.initialize({
+      theme: isDarkMode ? 'dark' : 'default',
+      securityLevel: 'loose',
+      startOnLoad: true,
+      themeVariables: {
+        // Custom theme variables for security-focused diagrams
+        primaryColor: isDarkMode ? '#00bcd4' : '#009688',
+        primaryTextColor: isDarkMode ? '#ffffff' : '#ffffff',
+        primaryBorderColor: isDarkMode ? '#0097a7' : '#00796b',
+        lineColor: isDarkMode ? '#aaaaaa' : '#666666',
+        secondaryColor: isDarkMode ? '#4dd0e1' : '#4db6ac',
+        tertiaryColor: isDarkMode ? '#2d2d2d' : '#f5f5f5',
+      },
       startOnLoad: true,
       theme: document.body.getAttribute('data-md-color-scheme') === 'slate' ? 'dark' : 'default',
       securityLevel: 'loose',
@@ -122,4 +137,92 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }, 1000); // Allow time for diagrams to render
+});
+
+// Add interactive security elements
+document.addEventListener('DOMContentLoaded', function() {
+  // Add pulse effect to security badges
+  const securityElements = document.querySelectorAll('.security-badge');
+  securityElements.forEach(element => {
+    element.addEventListener('mouseenter', function() {
+      this.style.transform = 'scale(1.05)';
+    });
+    element.addEventListener('mouseleave', function() {
+      this.style.transform = 'scale(1)';
+    });
+  });
+
+  // Add tooltips to security-related elements
+  document.querySelectorAll('[data-security-tip]').forEach(element => {
+    const tipText = element.getAttribute('data-security-tip');
+    
+    element.addEventListener('mouseenter', function(e) {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'security-tooltip';
+      tooltip.textContent = tipText;
+      tooltip.style.position = 'absolute';
+      tooltip.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+      tooltip.style.color = '#fff';
+      tooltip.style.padding = '5px 10px';
+      tooltip.style.borderRadius = '4px';
+      tooltip.style.fontSize = '14px';
+      tooltip.style.zIndex = '1000';
+      tooltip.style.maxWidth = '300px';
+      
+      document.body.appendChild(tooltip);
+      
+      const rect = element.getBoundingClientRect();
+      tooltip.style.top = (rect.bottom + window.scrollY + 10) + 'px';
+      tooltip.style.left = (rect.left + window.scrollX) + 'px';
+      
+      this.tooltip = tooltip;
+    });
+    
+    element.addEventListener('mouseleave', function() {
+      if (this.tooltip) {
+        this.tooltip.remove();
+        this.tooltip = null;
+      }
+    });
+  });
+  
+  // Add visual highlighting for security vulnerabilities
+  document.querySelectorAll('code span.vulnerability').forEach(element => {
+    element.style.backgroundColor = 'rgba(244, 67, 54, 0.2)';
+    element.style.borderBottom = '2px solid #f44336';
+    element.style.padding = '0 2px';
+  });
+  
+  // Add security status indicators
+  document.querySelectorAll('[data-security-status]').forEach(element => {
+    const status = element.getAttribute('data-security-status');
+    const indicator = document.createElement('span');
+    
+    indicator.className = 'security-status-indicator';
+    indicator.style.display = 'inline-block';
+    indicator.style.width = '10px';
+    indicator.style.height = '10px';
+    indicator.style.borderRadius = '50%';
+    indicator.style.marginRight = '5px';
+    
+    switch(status) {
+      case 'secure':
+        indicator.style.backgroundColor = 'var(--secure-color)';
+        indicator.title = 'Secure';
+        break;
+      case 'vulnerable':
+        indicator.style.backgroundColor = 'var(--vulnerable-color)';
+        indicator.title = 'Vulnerable';
+        break;
+      case 'warning':
+        indicator.style.backgroundColor = 'var(--warning-color)';
+        indicator.title = 'Warning';
+        break;
+      default:
+        indicator.style.backgroundColor = 'var(--info-color)';
+        indicator.title = 'Information';
+    }
+    
+    element.prepend(indicator);
+  });
 });

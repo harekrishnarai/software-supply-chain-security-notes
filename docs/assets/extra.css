@@ -2,12 +2,36 @@
 
 /* Overall styling */
 :root {
-  --md-primary-fg-color: #2b3a42;
-  --md-primary-fg-color--light: #34495e;
-  --md-primary-fg-color--dark: #1d2935;
-  --md-accent-fg-color: #3498db;
+  /* Light theme variables */
+  --md-primary-fg-color: #009688;
+  --md-primary-fg-color--light: #4db6ac;
+  --md-primary-fg-color--dark: #00796b;
+  --md-accent-fg-color: #ff5722;
   --md-text-font: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --md-code-font: "JetBrains Mono", "Roboto Mono", "Courier New", Courier, monospace;
+  
+  /* Security-themed custom variables */
+  --secure-color: #4caf50;
+  --vulnerable-color: #f44336;
+  --warning-color: #ff9800;
+  --info-color: #2196f3;
+}
+
+[data-md-color-scheme="slate"] {
+  /* Dark theme overrides */
+  --md-primary-fg-color: #00bcd4;
+  --md-primary-fg-color--light: #4dd0e1;
+  --md-primary-fg-color--dark: #0097a7;
+  --md-accent-fg-color: #ff5722;
+  --md-default-bg-color: #1a1a1a;
+  --md-default-fg-color: #f5f5f5;
+  --md-code-bg-color: #2d2d2d;
+  
+  /* Security dark theme colors */
+  --secure-color: #81c784;
+  --vulnerable-color: #e57373;
+  --warning-color: #ffb74d;
+  --info-color: #64b5f6;
 }
 
 body {
@@ -144,10 +168,14 @@ body {
   padding: 0.2em 0.4em;
 }
 
+.md-typeset .highlight code {
+  border-radius: 0 0 3px 3px;
+}
+
 .md-typeset pre > code {
   background-color: #f8f9fa;
   border-radius: 6px;
-  padding: 1em;
+  padding: 12px;
   font-size: 0.9em;
   line-height: 1.5;
   box-shadow: 0 2px 5px rgba(0,0,0,.05);
@@ -157,6 +185,7 @@ body {
 .md-typeset table:not([class]) {
   box-shadow: 0 2px 5px rgba(0,0,0,.05);
   border-radius: 4px;
+  overflow: hidden;
 }
 
 .md-typeset table:not([class]) th {
@@ -166,6 +195,10 @@ body {
 
 .md-typeset table:not([class]) tr:nth-child(even) {
   background-color: #f8f9fa;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  background-color: var(--md-primary-fg-color--dark);
 }
 
 /* Mermaid diagrams */
@@ -226,7 +259,7 @@ body {
   background-color: #2a2a3e;
 }
 
-[data-md-color-scheme="slate"] .md-typeset code {
+[data-md_color-scheme="slate"] .md-typeset code {
   background-color: rgba(66, 66, 86, 0.75);
   color: #e1e1e1;
 }
@@ -261,4 +294,121 @@ body {
 .md-footer {
   margin-top: 0;
   padding-top: 0;
+}
+
+/* Security-themed custom elements */
+/* Security badge styles */
+.security-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.badge-secure {
+  background-color: var(--secure-color);
+  color: white;
+}
+
+.badge-vulnerable {
+  background-color: var(--vulnerable-color);
+  color: white;
+}
+
+.badge-warning {
+  background-color: var(--warning-color);
+  color: white;
+}
+
+.badge-info {
+  background-color: var(--info-color);
+  color: white;
+}
+
+/* Custom admonitions for security alerts */
+.md-typeset .admonition.security,
+.md-typeset details.security {
+  border-left-color: var(--vulnerable-color);
+}
+
+.md-typeset .security > .admonition-title,
+.md-typeset .security > summary {
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+.md-typeset .security > .admonition-title::before,
+.md-typeset .security > summary::before {
+  background-color: var(--vulnerable-color);
+  content: "security";
+  -webkit-mask-image: var(--md-admonition-icon--warning);
+          mask-image: var(--md-admonition-icon--warning);
+}
+
+/* Security visualization elements */
+.secure-component {
+  border: 2px solid var(--secure-color);
+  border-radius: 4px;
+  padding: 8px;
+  margin: 8px 0;
+  background-color: rgba(76, 175, 80, 0.05);
+}
+
+.vulnerable-component {
+  border: 2px solid var(--vulnerable-color);
+  border-radius: 4px;
+  padding: 8px;
+  margin: 8px 0;
+  background-color: rgba(244, 67, 54, 0.05);
+}
+
+/* Security chain visualization styles */
+.chain-item {
+  position: relative;
+  padding: 16px;
+  margin: 8px 0;
+  border-radius: 6px;
+  background-color: rgba(0, 150, 136, 0.05);
+  border-left: 4px solid var(--md-primary-fg-color);
+}
+
+[data-md-color-scheme="slate"] .chain-item {
+  background-color: rgba(0, 188, 212, 0.05);
+}
+
+.chain-item::after {
+  content: "";
+  position: absolute;
+  bottom: -16px;
+  left: 20px;
+  width: 2px;
+  height: 16px;
+  background-color: var(--md-primary-fg-color);
+}
+
+.chain-item:last-child::after {
+  display: none;
+}
+
+/* Custom shield icon animation for protection elements */
+@keyframes shield-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+.shield-icon {
+  animation: shield-pulse 2s infinite ease-in-out;
+  display: inline-block;
 }
