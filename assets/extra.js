@@ -1,8 +1,47 @@
 // Custom JavaScript for Software Supply Chain Security Notes
 
-// Enable dark mode toggle
+// Header enhancement - smooth scroll and header appearance
 document.addEventListener('DOMContentLoaded', function() {
-  // Check for user's saved preference first
+  // Enhance header appearance
+  const header = document.querySelector('.md-header');
+  const headerHeight = header.offsetHeight;
+  
+  // Handle scroll events for header appearance
+  let lastScrollTop = 0;
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Add box shadow when scrolling down
+    if (scrollTop > 0) {
+      header.classList.add('md-header--shadow');
+    } else {
+      header.classList.remove('md-header--shadow');
+    }
+    
+    // Auto-hide header when scrolling down, show when scrolling up
+    if (scrollTop > lastScrollTop && scrollTop > headerHeight) {
+      header.classList.add('md-header--hidden');
+    } else {
+      header.classList.remove('md-header--hidden');
+    }
+    
+    lastScrollTop = scrollTop;
+  });
+  
+  // Smooth scroll for navigation links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId !== '#') {
+        e.preventDefault();
+        document.querySelector(targetId).scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Enable dark mode toggle
   const savedTheme = localStorage.getItem('darkMode');
   
   // If a preference is saved, use that, otherwise default to light mode

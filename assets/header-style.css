@@ -1,0 +1,110 @@
+/* Additional styling for tabs and navigation */
+.md-tabs {
+  background-color: transparent !important;
+}
+
+.md-tabs__list {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.md-tabs__item {
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.md-tabs__link {
+  position: relative;
+  opacity: 0.9;
+  transition: all 0.2s ease;
+  display: inline-block;
+  margin-top: 0;
+  opacity: 0.8;
+}
+
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  color: var(--md-primary-fg-color);
+  opacity: 1;
+}
+
+.md-tabs__link--active:after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--md-primary-fg-color);
+}
+
+/* Elegant header shadow effect */
+.md-header--shadow {
+  transition: box-shadow 0.4s, transform 0.4s;
+  box-shadow: 0 0 0.5rem rgba(0,0,0,.1), 0 0.2rem 0.4rem rgba(0,0,0,.05);
+}
+
+/* Header hide animation */
+.md-header--hidden {
+  transform: translateY(-100%);
+  transition: transform 0.4s;
+}
+
+/* Improve cards and grid layout */
+.md-typeset .grid {
+  grid-gap: 1.5rem;
+}
+
+/* Make tables more elegant */
+.md-typeset__table {
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.md-typeset table:not([class]) {
+  font-size: 0.8rem;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-primary-fg-color--light);
+  color: white;
+  padding: 0.8rem;
+}
+
+.md-typeset table:not([class]) td {
+  padding: 0.8rem;
+  border-top: 1px solid rgba(0,0,0,0.07);
+}
+
+/* Make admonitions prettier */
+.md-typeset .admonition,
+.md-typeset details {
+  border-width: 0;
+  border-left-width: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  background-color: var(--md-default-bg-color);
+}
+
+/* Better site width for readability */
+.md-grid {
+  max-width: 1200px;
+}
+
+/* Elegant top navigation button */
+.md-top {
+  background: var(--md-primary-fg-color);
+  border-radius: 100%;
+  color: var(--md-primary-bg-color);
+  opacity: 0.8;
+}
+
+.md-top:hover {
+  background: var(--md-primary-fg-color--dark);
+  color: var(--md-primary-bg-color);
+  opacity: 1;
+}

@@ -38,21 +38,101 @@ body {
   font-family: var(--md-text-font);
 }
 
-/* Header styling */
+/* Header styling - cleaner with better spacing */
 .md-header {
-  box-shadow: 0 3px 10px rgba(0,0,0,.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  padding: 0.5rem 0;
+}
+
+.md-header__inner {
+  padding: 0 0.8rem;
+}
+
+.md-header__button {
+  margin: 0.4rem;
 }
 
 .md-header-nav__title {
   font-weight: 600;
+  padding: 0;
+  font-size: 1.1rem;
 }
 
-/* Basic sidebar styling - with subtle enhancements */
+.md-header__topic {
+  opacity: 1;
+  transform: none;
+}
+
+.md-search__inner {
+  margin: 0.3rem;
+}
+
+/* Tab navigation styling */
+.md-tabs {
+  background-color: transparent !important;
+}
+
+.md-tabs__list {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.md-tabs__item {
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.md-tabs__link {
+  position: relative;
+  opacity: 0.9;
+  transition: all 0.2s ease;
+  display: inline-block;
+  margin-top: 0;
+  opacity: 0.8;
+}
+
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  color: var(--md-primary-fg-color);
+  opacity: 1;
+}
+
+.md-tabs__link--active:after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--md-primary-fg-color);
+}
+
+/* Elegant header shadow effect */
+.md-header--shadow {
+  transition: box-shadow 0.4s, transform 0.4s;
+  box-shadow: 0 0 0.5rem rgba(0,0,0,.1), 0 0.2rem 0.4rem rgba(0,0,0,.05);
+}
+
+/* Header hide animation */
+.md-header--hidden {
+  transform: translateY(-100%);
+  transition: transform 0.4s;
+}
+
+/* Improve cards and grid layout */
+.md-typeset .grid {
+  grid-gap: 1.5rem;
+}
+
+/* Sidebar navigation styling */
 .md-nav__title {
   color: var(--md-primary-fg-color);
   font-weight: 700;
   padding: 8px 0;
   margin-bottom: 8px;
+  font-size: 1rem;
+  color: var(--md-default-fg-color--light);
 }
 
 .md-nav__item .md-nav__link--active {
@@ -62,7 +142,9 @@ body {
 
 .md-nav__link {
   transition: color 0.2s ease;
-  padding: 4px 0;
+  padding: 6px 0;
+  margin: 0;
+  font-size: 0.8rem;
 }
 
 .md-nav__link:hover {
@@ -72,6 +154,7 @@ body {
 /* Add a subtle indicator for active items */
 .md-nav__link--active {
   position: relative;
+  font-weight: 600;
 }
 
 .md-nav__link--active::before {
@@ -80,7 +163,7 @@ body {
   left: -10px;
   top: 50%;
   transform: translateY(-50%);
-  width: 4px;
+  width: 3px;
   height: 1em;
   background-color: var(--md-accent-fg-color);
   border-radius: 2px;
@@ -89,16 +172,111 @@ body {
 /* Slightly indent nested navigation */
 .md-nav__item .md-nav {
   margin-left: 0.8rem;
+  font-size: 0.85em;
+}
+
+/* Clean logo alignment */
+.md-header__button.md-logo {
+  margin: 0.3rem 0.5rem;
+  padding: 0.3rem;
+}
+
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  height: 1.8rem;
+  width: auto;
+}
+
+/* Make search box more elegant */
+.md-search__form {
+  border-radius: 4px;
+  background-color: rgba(0,0,0,0.07);
+}
+
+[data-md-color-scheme="slate"] .md-search__form {
+  background-color: rgba(255,255,255,0.07);
 }
 
 /* Content styling */
 .md-content {
   max-width: 960px;
   margin: 0 auto;
+  padding: 1rem 1.2rem;
 }
 
 .md-content h1 {
   color: var(--md-primary-fg-color);
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+/* Footer styling */
+.md-footer {
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color--light);
+  padding: 0;
+}
+
+.md-footer-meta {
+  background-color: var(--md-default-bg-color);
+  border-top: 1px solid rgba(0,0,0,.07);
+}
+
+.md-footer-meta__inner {
+  padding: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.md-footer-copyright {
+  width: auto;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.7rem;
+}
+
+.md-footer-nav {
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  box-shadow: 0 -1px 2px rgba(0,0,0,.05);
+}
+
+.md-footer-nav__link {
+  padding: 0.8rem 1rem;
+}
+
+.md-footer-nav__title {
+  font-size: 0.8rem;
+}
+
+.md-footer-nav__direction {
+  font-size: 0.7rem;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Add better card styling */
+.md-typeset .grid {
+  grid-gap: 1rem;
+}
+
+.md-typeset .grid.cards > ul, 
+.md-typeset .grid > .card {
+  border: 1px solid rgba(0,0,0,.07);
+  box-shadow: 0 2px 5px rgba(0,0,0,.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.md-typeset .grid.cards > ul:hover, 
+.md-typeset .grid > .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,.1);
+}
+
+.md-typeset .grid.cards > ul > li, 
+.md-typeset .grid > .card > p {
+  margin: 0;
+}
+
+.md-content h1 {
   font-weight: 700;
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
@@ -123,8 +301,10 @@ body {
 /* Notes & admonitions */
 .md-typeset .admonition,
 .md-typeset details {
-  border-left: 4px solid var(--md-accent-fg-color);
-  box-shadow: 0 2px 5px rgba(0,0,0,.05);
+  border-width: 0;
+  border-left-width: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  background-color: var(--md-default-bg-color);
 }
 
 .md-typeset .note > .admonition-title,
@@ -182,19 +362,28 @@ body {
 }
 
 /* Tables */
+.md-typeset__table {
+  width: 100%;
+  margin: 2rem 0;
+}
+
 .md-typeset table:not([class]) {
-  box-shadow: 0 2px 5px rgba(0,0,0,.05);
+  font-size: 0.8rem;
+  border: 1px solid rgba(0,0,0,0.07);
   border-radius: 4px;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .md-typeset table:not([class]) th {
-  background-color: var(--md-primary-fg-color);
-  color: #fff;
+  background-color: var(--md-primary-fg-color--light);
+  color: white;
+  padding: 0.8rem;
 }
 
-.md-typeset table:not([class]) tr:nth-child(even) {
-  background-color: #f8f9fa;
+.md-typeset table:not([class]) td {
+  padding: 0.8rem;
+  border-top: 1px solid rgba(0,0,0,0.07);
 }
 
 [data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
@@ -255,10 +444,6 @@ body {
   background-color: #2a2a3e;
 }
 
-[data-md-color-scheme="slate"] .md-typeset table:not([class]) tr:nth-child(even) {
-  background-color: #2a2a3e;
-}
-
 [data-md_color-scheme="slate"] .md-typeset code {
   background-color: rgba(66, 66, 86, 0.75);
   color: #e1e1e1;
@@ -272,64 +457,7 @@ body {
   color: rgba(255, 255, 255, 0.9);
 }
 
-[data-md-color-scheme="slate"] .md-nav__item .md-nav__link {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-[data-md-color-scheme="slate"] .md-nav__link:hover {
-  color: var(--md-accent-fg-color);
-}
-
-/* Hide footer */
-.md-footer-meta {
-  display: none;
-}
-
-/* Hide "Made with Material for MkDocs" text */
-.md-footer-copyright {
-  display: none;
-}
-
-/* Remove footer spacing completely */
-.md-footer {
-  margin-top: 0;
-  padding-top: 0;
-}
-
-/* Security-themed custom elements */
-/* Security badge styles */
-.security-badge {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
-  margin-right: 8px;
-  margin-bottom: 8px;
-}
-
-.badge-secure {
-  background-color: var(--secure-color);
-  color: white;
-}
-
-.badge-vulnerable {
-  background-color: var(--vulnerable-color);
-  color: white;
-}
-
-.badge-warning {
-  background-color: var(--warning-color);
-  color: white;
-}
-
-.badge-info {
-  background-color: var(--info-color);
-  color: white;
-}
-
-/* Custom admonitions for security alerts */
-.md-typeset .admonition.security,
+[data-md_color-scheme="slate"] .md-typeset .admonition.security,
 .md-typeset details.security {
   border-left-color: var(--vulnerable-color);
 }
@@ -411,4 +539,115 @@ body {
 .shield-icon {
   animation: shield-pulse 2s infinite ease-in-out;
   display: inline-block;
+}
+
+/* Additional styling for tabs and navigation */
+.md-tabs {
+  background-color: transparent !important;
+}
+
+.md-tabs__list {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.md-tabs__item {
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.md-tabs__link {
+  position: relative;
+  opacity: 0.9;
+  transition: all 0.2s ease;
+  display: inline-block;
+  margin-top: 0;
+  opacity: 0.8;
+}
+
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  color: var(--md-primary-fg-color);
+  opacity: 1;
+}
+
+.md-tabs__link--active:after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--md-primary-fg-color);
+}
+
+/* Elegant header shadow effect */
+.md-header--shadow {
+  transition: box-shadow 0.4s, transform 0.4s;
+  box-shadow: 0 0 0.5rem rgba(0,0,0,.1), 0 0.2rem 0.4rem rgba(0,0,0,.05);
+}
+
+/* Header hide animation */
+.md-header--hidden {
+  transform: translateY(-100%);
+  transition: transform 0.4s;
+}
+
+/* Improve cards and grid layout */
+.md-typeset .grid {
+  grid-gap: 1.5rem;
+}
+
+/* Make tables more elegant */
+.md-typeset__table {
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.md-typeset table:not([class]) {
+  font-size: 0.8rem;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-primary-fg-color--light);
+  color: white;
+  padding: 0.8rem;
+}
+
+.md-typeset table:not([class]) td {
+  padding: 0.8rem;
+  border-top: 1px solid rgba(0,0,0,0.07);
+}
+
+/* Make admonitions prettier */
+.md-typeset .admonition,
+.md-typeset details {
+  border-width: 0;
+  border-left-width: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  background-color: var(--md-default-bg-color);
+}
+
+/* Better site width for readability */
+.md-grid {
+  max-width: 1200px;
+}
+
+/* Elegant top navigation button */
+.md-top {
+  background: var(--md-primary-fg-color);
+  border-radius: 100%;
+  color: var(--md-primary-bg-color);
+  opacity: 0.8;
+}
+
+.md-top:hover {
+  background: var(--md-primary-fg-color--dark);
+  color: var(--md-primary-bg-color);
+  opacity: 1;
 }
