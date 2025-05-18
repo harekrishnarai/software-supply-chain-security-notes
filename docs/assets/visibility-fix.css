@@ -1,0 +1,154 @@
+/* Fix for tab and footer visibility */
+
+/* Reset and force tabs to be visible with proper styling */
+.md-tabs {
+  background-color: var(--md-primary-fg-color) !important; 
+  color: white !important;
+  visibility: visible !important;
+  display: flex !important;
+  padding: 0.5rem 0 !important;
+  border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+  z-index: 2 !important;
+}
+
+/* Primary header styling */
+.md-header {
+  color: white !important;
+  background-color: var(--md-primary-fg-color) !important;
+}
+
+/* Override any conflicting tab styles from other CSS files */
+.md-header-nav,
+.md-header__inner,
+.md-header__title,
+.md-header__topic,
+.md-header__ellipsis,
+.md-header__button {
+  color: white !important;
+}
+
+/* Ensure site title is visible */
+.md-header__title,
+.md-header__topic,
+.md-header__ellipsis {
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+/* Force proper display of tab links */
+.md-tabs__item {
+  display: inline-block !important;
+  height: auto !important;
+}
+
+/* Force tabs to be visible with proper contrast */
+.md-tabs__link {
+  color: white !important;
+  opacity: 0.85 !important;
+  font-weight: 500 !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.8rem !important;
+}
+
+/* Strong highlighting for active tab */
+.md-tabs__link--active {
+  color: white !important;
+  opacity: 1 !important;
+  font-weight: 700 !important;
+  position: relative !important;
+}
+
+/* Fix footer visibility issues */
+.md-footer {
+  background-color: var(--md-primary-fg-color) !important;
+  color: white !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.md-footer-nav {
+  background-color: var(--md-primary-fg-color) !important;
+  color: white !important;
+}
+
+.md-footer-meta {
+  background-color: var(--md-primary-fg-color--dark) !important;
+  color: white !important;
+  border-top: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.md-footer-copyright__highlight,
+.md-footer-copyright,
+.md-footer-social__link,
+.md-footer-nav__direction,
+.md-footer-nav__title,
+.md-footer-nav__button,
+.md-footer-meta__item {
+  color: white !important;
+  opacity: 0.9 !important;
+}
+
+/* Force Footer text to proper color */
+.md-footer-nav__title .md-ellipsis,
+.md-footer-nav__direction {
+  color: white !important;
+  opacity: 0.85 !important;
+}
+
+.md-tabs__link {
+  color: white !important;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  color: white !important;
+  opacity: 1;
+  font-weight: 700;
+}
+
+/* Override transparent background that was previously set */
+.md-tabs__link--active:after {
+  background-color: white !important;
+}
+
+/* Fix footer visibility */
+.md-footer {
+  background-color: var(--md-primary-fg-color) !important;
+  color: white !important;
+}
+
+.md-footer-meta {
+  background-color: var(--md-primary-fg-color--dark) !important;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.md-footer-copyright,
+.md-footer-nav__direction,
+.md-footer-nav__title,
+.md-footer-nav__button,
+.md-footer-meta__item {
+  color: white !important;
+  opacity: 0.9;
+}
+
+.md-footer-nav__link:hover .md-footer-nav__direction,
+.md-footer-nav__link:hover .md-footer-nav__title {
+  color: white !important;
+  opacity: 1;
+}
+
+.md-footer-nav__link:hover {
+  color: white !important;
+  opacity: 1;
+}
+
+/* Fix dark mode footer */
+[data-md-color-scheme="slate"] .md-footer {
+  background-color: var(--md-primary-fg-color) !important;
+}
+
+[data-md-color-scheme="slate"] .md-footer-meta {
+  background-color: var(--md-primary-fg-color--dark) !important;
+}

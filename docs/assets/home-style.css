@@ -1,0 +1,119 @@
+/* Home page specific styling */
+
+/* Featured sections grid layout */
+.featured-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.featured-card {
+  padding: 1.5rem;
+  border-radius: 4px;
+  background-color: var(--md-default-bg-color);
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+
+.featured-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.featured-card h3 {
+  color: var(--md-primary-fg-color);
+  margin-top: 0;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.featured-card h3 svg {
+  margin-right: 0.5rem;
+  color: var(--md-primary-fg-color);
+}
+
+.featured-card p {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
+
+/* Section dividers */
+.section-divider {
+  margin: 3rem 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent);
+}
+
+/* Hero section styling */
+.hero-section {
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  color: var(--md-default-fg-color--light);
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.hero-button {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.hero-button-primary {
+  background-color: var(--md-primary-fg-color);
+  color: white;
+}
+
+.hero-button-primary:hover {
+  background-color: var(--md-primary-fg-color--dark);
+  color: white;
+}
+
+.hero-button-secondary {
+  background-color: rgba(0,0,0,0.05);
+  color: var(--md-default-fg-color);
+}
+
+.hero-button-secondary:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] .featured-card {
+  border-color: rgba(255,255,255,0.07);
+}
+
+[data-md-color-scheme="slate"] .section-divider {
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+}
+
+[data-md-color-scheme="slate"] .hero-button-secondary {
+  background-color: rgba(255,255,255,0.05);
+}
+
+[data-md-color-scheme="slate"] .hero-button-secondary:hover {
+  background-color: rgba(255,255,255,0.1);
+}

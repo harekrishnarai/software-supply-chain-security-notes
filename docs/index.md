@@ -30,6 +30,31 @@ Software supply chain security has evolved dramatically over the past decade:
 
 Organizations must adapt to this evolving landscape by implementing comprehensive security controls across their entire software development and deployment pipeline.
 
+<div class="section-divider"></div>
+
+## Key Security Areas
+
+<div class="featured-section">
+  <div class="featured-card">
+    <h3><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"></path></svg></span> Risk Assessment</h3>
+    <p>Learn about threat modeling, vulnerability management, and security risk assessment strategies for your software supply chain.</p>
+  </div>
+  <div class="featured-card">
+    <h3><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zm-2 5.79V18h-3.52L12 20.48 9.52 18H6v-3.52L3.52 12 6 9.52V6h3.52L12 3.52 14.48 6H18v3.52L20.48 12 18 14.48zM12 6.5c-3.03 0-5.5 2.47-5.5 5.5s2.47 5.5 5.5 5.5 5.5-2.47 5.5-5.5-2.47-5.5-5.5-5.5zm0 9c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"></path></svg></span> Secure Development</h3>
+    <p>Discover approaches for dependency management, SBOM generation, and secure coding practices to build secure software.</p>
+  </div>
+  <div class="featured-card">
+    <h3><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"></path></svg></span> CI/CD Security</h3>
+    <p>Explore pipeline security configurations, artifact signing strategies, and best practices for securing your delivery pipeline.</p>
+  </div>
+  <div class="featured-card">
+    <h3><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 8h-1V3H6v5H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zM8 5h8v3H8V5zm8 12v2H8v-4h8v2zm2-2v-2H6v2H4v-4c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v4h-2z"></path></svg></span> Security Tools</h3>
+    <p>Review security scanners, monitoring solutions, and tools to enhance your software supply chain security posture.</p>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
 ## Supply Chain Visualization
 
 The software supply chain is a complex ecosystem involving multiple components and security controls. The diagram below illustrates the core flow and critical security measures:

@@ -4,7 +4,7 @@ site_description: >-
   A comprehensive resource for understanding and implementing software supply chain security.
 repo_url: https://github.com/harekrishnarai/software-supply-chain-security-notes
 repo_name: GitHub
-copyright: ''
+copyright: '© 2023-2025 Software Supply Chain Security'
 
 nav:
   - Home: index.md
@@ -30,6 +30,9 @@ nav:
 
 extra_css:
   - assets/extra.css
+  - assets/header-style.css
+  - assets/visibility-fix.css
+  - assets/home-style.css
 
 extra_javascript:
   - assets/extra.js
@@ -62,10 +65,12 @@ theme:
     - navigation.indexes
     - navigation.path
     - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.footer
     - navigation.expand
-    - navigation.prune
     - toc.follow
-    - toc.integrate
     - search.suggest
     - search.highlight
     - search.share
