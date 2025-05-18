@@ -316,43 +316,365 @@ Based on threat modeling results, implement appropriate controls:
 - **SBOM Generation**: Generate Software Bill of Materials for all artifacts
 - **Signature Verification**: Verify signatures before deployment
 
-## Supply Chain Threat Modeling Maturity Model
+## Real-World Supply Chain Attack Case Studies
 
-Organizations can assess their supply chain threat modeling maturity using this framework:
+Understanding real-world attacks helps illustrate the importance of threat modeling in supply chain security. These case studies demonstrate how threat modeling might have identified vulnerabilities before they were exploited.
 
-| Level | Characteristics | Activities |
-|-------|----------------|------------|
-| **Level 1: Ad-hoc** | Reactive, inconsistent, minimal documentation | Occasional threat discussions, basic asset identification |
-| **Level 2: Repeatable** | Defined process, basic tools, conducted post-design | Regular reviews, documented architecture, STRIDE analysis |
-| **Level 3: Defined** | Standardized, integrated into SDLC, threat library | Threat modeling in design phase, threat tracking, complete documentation |
-| **Level 4: Managed** | Metrics driven, automated, comprehensive coverage | Automated analysis, threat intelligence integration, risk-based prioritization |
-| **Level 5: Optimizing** | Continuous improvement, advanced techniques, supply chain focus | Custom threat modeling frameworks, advanced visualization, attack simulation |
+### SolarWinds (2020)
 
-## Threat Modeling Tools for Supply Chain Security
+```mermaid
+sequenceDiagram
+    actor Attacker
+    participant Build as Build Server
+    participant Source as Source Code
+    participant Product as Orion Product
+    participant Customer as Customer Environment
+    
+    Attacker->>Build: Compromise build server
+    Attacker->>Build: Insert malicious code during build process
+    Build->>Product: Compile compromised code
+    Note over Product: Code signed with legitimate certificate
+    Product->>Customer: Distribute product update
+    Attacker->>Customer: Establish backdoor access
+```
 
-Several tools can assist with supply chain threat modeling:
+**Attack Details**: Attackers compromised SolarWinds' build infrastructure and inserted malicious code (SUNBURST) into the Orion software during the build process. The compromised update was then digitally signed and distributed to ~18,000 customers.
 
-- **Microsoft Threat Modeling Tool**: Visual diagramming tool for STRIDE analysis
-- **OWASP Threat Dragon**: Open-source threat modeling tool
-- **PyTM**: Python-based tool for threat modeling
-- **IriusRisk**: Commercial threat modeling platform with supply chain templates
-- **ThreatModeler**: Enterprise-grade threat modeling solution
+**Threat Modeling Lessons**:
+- Build server compromise was underestimated as a threat vector
+- Integrity verification between source code and final binary was insufficient
+- Monitoring for abnormal build process activities could have detected the attack
 
-## Conclusion
+### CodeCov (2021)
+
+**Attack Details**: Attackers modified a bash uploader script on CodeCov's server, allowing them to harvest environment variables and credentials from CI/CD pipelines that used the script.
+
+**Threat Modeling Lessons**:
+- Supply chain asset inventory did not properly account for bash scripts
+- Script integrity verification was lacking
+- Regular integrity checking of deployment artifacts could have detected tampering
+
+### npm Package Hijacking (Various)
+
+**Attack Details**: Multiple instances where attackers gained control of popular npm packages through social engineering, account takeovers, or creating malicious packages with names similar to popular packages.
+
+**Threat Modeling Lessons**:
+- Dependency confusion attacks were not widely understood before exploitation
+- Package registry authentication and ownership transfer processes had security gaps
+- Verification of package provenance was inadequate
+
+## Advanced Threat Modeling Techniques
+
+### Automated Threat Modeling
+
+Organizations can enhance their threat modeling processes with automation:
+
+```python
+# Example: Simplified automated threat model generation
+import yaml
+import json
+
+# Load system architecture
+with open('architecture.yaml', 'r') as f:
+    architecture = yaml.safe_load(f)
+
+# Load threat database
+with open('threats.json', 'r') as f:
+    threat_db = json.load(f)
+
+# Map threats to components
+def identify_threats(component, threat_db):
+    component_type = component['type']
+    applicable_threats = []
+    
+    for threat in threat_db:
+        if component_type in threat['applicable_to']:
+            applicable_threats.append({
+                'threat_id': threat['id'],
+                'name': threat['name'],
+                'description': threat['description'],
+                'likelihood': threat['base_likelihood'],
+                'impact': threat['base_impact'],
+                'mitigations': threat['standard_mitigations']
+            })
+    
+    return applicable_threats
+
+# Generate threat model
+threat_model = {}
+for component in architecture['components']:
+    threat_model[component['name']] = identify_threats(component, threat_db)
+
+# Output the threat model
+with open('automated_threat_model.json', 'w') as f:
+    json.dump(threat_model, f, indent=2)
+```
+
+### Threat Intelligence Integration
+
+Modern threat modeling incorporates threat intelligence to prioritize defenses against active threats:
+
+```mermaid
+flowchart LR
+    classDef blue fill:#3498db, stroke:#333, stroke-width:1px, color:white
+    classDef green fill:#2ecc71, stroke:#333, stroke-width:1px
+    classDef red fill:#e74c3c, stroke:#333, stroke-width:1px, color:white
+    
+    A[Threat Intelligence Feeds]:::blue --> B[Intelligence Processing]:::blue
+    B --> C[Threat Actor Profiles]:::green
+    B --> D[TTPs Database]:::green
+    B --> E[IOC Repository]:::green
+    
+    F[Supply Chain Architecture]:::blue --> G[Threat Modeling Process]:::blue
+    
+    C --> G
+    D --> G
+    E --> G
+    
+    G --> H[Prioritized Threats]:::red
+    G --> I[Targeted Mitigations]:::red
+    G --> J[Detection Strategies]:::red
+```
+
+### Threat Modeling for Modern Development Practices
+
+#### Containerization & Kubernetes
+
+For containerized environments, threat modeling must address additional concerns:
+
+- Container escape vulnerabilities
+- Image integrity and provenance
+- Registry security
+- Kubernetes RBAC and network policies
+- Secrets management in orchestration
+
+#### Serverless Architectures
+
+Serverless introduces unique threat vectors to consider:
+
+- Function permission boundaries
+- Dependency injection in deployment packages
+- Event-driven security controls
+- Cold start exploitation
+- Tenancy isolation failures
+
+#### Infrastructure as Code (IaC)
+
+IaC threat modeling considerations:
+
+- Template injection attacks
+- Privilege escalation through misconfiguration
+- Secret management in IaC definitions
+- Provider API security
+- State file protection
+
+## Supply Chain Threat Model Templates
+
+### Standard Threat Scenarios and Mitigations
+
+| Threat Scenario | STRIDE Categories | Common Attack Vectors | Recommended Controls |
+|-----------------|-------------------|------------------------|----------------------|
+| **Compromised Development Tool** | Tampering, Elevation of Privilege | Malicious plugins, IDE exploits, local malware | Tool verification, reproducible builds, isolated environments |
+| **Dependency Substitution** | Spoofing, Tampering | Typosquatting, dependency confusion | Private repositories, dependency pinning, integrity verification |
+| **CI/CD Pipeline Compromise** | Tampering, Elevation of Privilege | Webhook exploitation, runner compromise | Pipeline hardening, ephemeral environments, build provenance |
+| **Source Code Repository Breach** | Information Disclosure, Tampering | Credential theft, weak access controls | MFA, branch protection, signed commits |
+| **Artifact Repository Compromise** | Tampering, Spoofing | Unauthorized publishing, metadata tampering | Artifact signing, access controls, immutability |
+| **Build Infrastructure Breach** | Elevation of Privilege, Tampering | Vulnerable build tools, insider threats | Isolated build environments, least privilege, attestation |
+
+### Mitigation Strategy Templates
+
+#### Strategy 1: Defense in Depth for Build Systems
+
+```mermaid
+flowchart TD
+    classDef blue fill:#3498db, stroke:#333, stroke-width:1px, color:white
+    classDef green fill:#2ecc71, stroke:#333, stroke-width:1px
+    classDef yellow fill:#f1c40f, stroke:#333, stroke-width:1px
+    classDef red fill:#e74c3c, stroke:#333, stroke-width:1px, color:white
+    
+    A[Build System Security]:::blue
+    
+    A --> B[Prevention]:::green
+    A --> C[Detection]:::yellow
+    A --> D[Response]:::red
+    
+    B --> B1[Network Isolation]
+    B --> B2[Ephemeral Build Environments]
+    B --> B3[Just-in-Time Access]
+    B --> B4[Minimal Dependencies]
+    
+    C --> C1[Build Anomaly Detection]
+    C --> C2[Binary Comparison]
+    C --> C3[Behavioral Monitoring]
+    C --> C4[Integrity Verification]
+    
+    D --> D1[Incident Playbooks]
+    D --> D2[Rebuild from Verified Source]
+    D --> D3[Revoke Compromised Artifacts]
+    D --> D4[Build Chain Analysis]
+```
+
+#### Strategy 2: Dependency Security Controls
+
+1. **Inventory Management**
+   - Maintain a complete inventory of all dependencies (direct and transitive)
+   - Generate and maintain SBOMs for all applications
+
+2. **Access Controls**
+   - Use private dependency mirrors/proxies for critical applications
+   - Implement strict access controls for adding new dependencies
+
+3. **Verification Mechanisms**
+   - Verify integrity of all downloaded dependencies
+   - Implement dependency pinning using cryptographic hashes
+   - Use lockfiles to prevent dependency confusion attacks
+
+4. **Continuous Monitoring**
+   - Monitor for new vulnerabilities in dependencies
+   - Implement automated dependency update processes with security testing
+   - Monitor for suspicious behavior in dependency-related tooling
+
+## Threat Modeling Tools Comparison
+
+| Tool | Platform | Visualization | Collaboration | Automation | Supply Chain Focus | Cost |
+|------|----------|---------------|--------------|------------|----------------------|------|
+| **Microsoft Threat Modeling Tool** | Windows | Diagrams, Reports | Limited | Manual | Limited | Free |
+| **OWASP Threat Dragon** | Cross-platform | Interactive diagrams | GitHub integration | Manual | Limited | Free/Open Source |
+| **IriusRisk** | Web-based | Diagrams, Reports, Dashboards | Team collaboration | Rule-based automation | Supply chain templates | Commercial |
+| **ThreatModeler** | Web-based | Diagrams, Heat maps | Team collaboration | Automated generation | Industry templates | Commercial |
+| **PyTM** | Python library | Graph visualization | GitHub integration | Automated from code | Customizable | Free/Open Source |
+| **Threagile** | Go application | Risk heatmaps | Limited | Architecture as code | Cloud native focus | Free/Open Source |
+
+## Executable Threat Modeling for DevSecOps
+
+To integrate threat modeling into CI/CD pipelines, organizations can implement "executable threat models" - threat modeling as code that can be automatically evaluated:
+
+```yaml
+# Example: Threat Model as Code (simplified syntax)
+name: "Container Registry"
+type: "artifact-repository"
+description: "Central registry for container images"
+
+trust_boundaries:
+  - name: "internet-boundary"
+    description: "Boundary between internet and registry"
+  - name: "registry-backend"
+    description: "Boundary between registry API and storage"
+
+assets:
+  - name: "container-images"
+    classification: "high"
+    description: "Built container images"
+  - name: "registry-credentials"
+    classification: "critical"
+    description: "Credentials for pushing/pulling images"
+
+threats:
+  - name: "unauthorized-image-push"
+    stride: "tampering"
+    description: "Attacker pushes malicious image to registry"
+    affected_assets: ["container-images"]
+    risk: "high"
+    mitigations:
+      - "registry-authentication"
+      - "image-signing"
+      - "push-restrictions"
+  
+  - name: "credential-theft"
+    stride: "information-disclosure"
+    description: "Attacker steals registry credentials"
+    affected_assets: ["registry-credentials"]
+    risk: "critical"
+    mitigations:
+      - "short-lived-credentials"
+      - "credential-rotation"
+      - "mfa-for-registry"
+
+mitigations:
+  - name: "registry-authentication"
+    implemented: true
+    description: "OIDC-based authentication for registry access"
+  
+  - name: "image-signing"
+    implemented: false
+    description: "Cryptographic signing of container images"
+    implementation_plan: "Implement Cosign in Q3 2023"
+  
+  - name: "push-restrictions"
+    implemented: true
+    description: "Only allow pushes from CI/CD pipeline"
+```
+
+This approach allows for:
+- Automated threat model evaluation in CI/CD pipelines
+- Version-controlled threat models alongside code
+- Automated reporting on security coverage
+- Integration with security testing and validation
+
+## Continuous Threat Modeling
+
+Modern software development requires continuous threat modeling rather than point-in-time exercises:
+
+```mermaid
+graph LR
+    classDef blue fill:#3498db, stroke:#333, stroke-width:1px, color:white
+    classDef green fill:#2ecc71, stroke:#333, stroke-width:1px
+    
+    A[Changes]:::blue --> B[Automatic Analysis]:::blue
+    B --> C[Threat Identification]:::blue
+    C --> D[Risk Assessment]:::blue
+    D --> E[Control Implementation]:::blue
+    E --> F[Validation]:::blue
+    F --> A
+    
+    B --> G[New Dependencies]:::green
+    B --> H[Architecture Changes]:::green
+    B --> I[New Features]:::green
+    B --> J[Infrastructure Updates]:::green
+```
+
+Key practices for continuous threat modeling:
+
+1. **Integrate with Development Workflows**
+   - Add threat modeling checkpoints to design reviews
+   - Include security architecture in definition of done
+   - Make threat modeling a standard part of sprint planning
+
+2. **Automate Where Possible**
+   - Use automated scanning to identify new components/dependencies
+   - Implement rule-based threat identification
+   - Automate control verification testing
+
+3. **Focus on Changes**
+   - Analyze the threat implications of each change
+   - Maintain a living threat model that evolves with the application
+   - Prioritize analysis of high-risk changes
+
+## Conclusion and Next Steps
 
 Threat modeling is an essential practice for organizations looking to enhance their software supply chain security. By systematically identifying and addressing potential threats, organizations can significantly reduce their risk exposure and improve their overall security posture.
 
-A well-executed threat modeling process should be:
-- **Continuous**: Performed regularly as your supply chain evolves
-- **Collaborative**: Involving developers, security teams, and operations
-- **Actionable**: Resulting in concrete security improvements
-- **Documented**: Creating a record of decisions and assumptions
-- **Validated**: Tested through penetration testing or red team exercises
+### Creating Your First Supply Chain Threat Model
 
-By making threat modeling a core part of your software supply chain security program, you can stay ahead of evolving threats and build more resilient systems.
+1. **Start Small**: Begin with a single, critical component of your supply chain
+2. **Map the Flow**: Document how code moves from development to production
+3. **Identify Assets**: List the valuable assets in your supply chain
+4. **Apply STRIDE**: Use the STRIDE framework to identify threats to each component
+5. **Prioritize**: Focus on high-impact, high-likelihood threats first
+6. **Mitigate**: Implement controls to address identified risks
+7. **Validate**: Test your controls to ensure they work as expected
+8. **Expand**: Gradually expand your threat model to cover more of your supply chain
 
-!!! info "Threat Modeling Resources"
-    - [CISA Secure Software Development Framework](https://www.cisa.gov/resources-tools/resources/secure-software-development-framework-ssdf)
-    - [SLSA Framework](https://slsa.dev/)
-    - [NIST SP 800-218](https://csrc.nist.gov/publications/detail/sp/800-218/final)
-    - [Supply Chain Compromise Topic](https://www.ncsc.gov.uk/collection/supply-chain-security)
+### Additional Resources
+
+- [CISA Secure Software Development Framework](https://www.cisa.gov/resources-tools/resources/secure-software-development-framework-ssdf)
+- [SLSA Framework](https://slsa.dev/)
+- [NIST SP 800-218](https://csrc.nist.gov/publications/detail/sp/800-218/final)
+- [Supply Chain Compromise Topic](https://www.ncsc.gov.uk/collection/supply-chain-security)
+- [Microsoft Threat Modeling Tool](https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool)
+- [OWASP Threat Dragon](https://owasp.org/www-project-threat-dragon/)
+- [Practical Threat Analysis for Software Developers (ACM Queue)](https://queue.acm.org/detail.cfm?id=3471639)
+- [Building a Software Supply Chain Threat Model (Google Cloud Blog)](https://cloud.google.com/blog/products/application-development/using-threat-modeling-for-secure-application-development)
+
+!!! tip "Threat Modeling Workshops"
+    Consider conducting regular threat modeling workshops with cross-functional teams (developers, security, operations) to build a shared understanding of risks and foster a security culture across your organization.
