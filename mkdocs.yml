@@ -11,6 +11,12 @@ nav:
   - Introduction:
       - Overview: introduction/overview.md
       - Terminology: introduction/terminology.md
+  - Package Ecosystem Security:
+      - Overview: package-ecosystems/overview.md
+      - npm/Node.js Security: package-ecosystems/npm-security.md
+      - PyPI/Python Security: package-ecosystems/pypi-security.md
+      - Maven/Java Security: package-ecosystems/maven-security.md
+      - Other Ecosystems & Protection: package-ecosystems/other-ecosystems.md
   - Risk Assessment:
       - Threat Modeling: risk-assessment/threat-modeling.md
       - Vulnerability Management: risk-assessment/vulnerability-management.md
