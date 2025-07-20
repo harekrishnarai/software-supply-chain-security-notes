@@ -267,4 +267,4 @@ The Maven ecosystem's enterprise focus requires sophisticated security approache
 4. **Verify PGP signatures** for critical dependencies
 5. **Monitor security advisories** for Java ecosystem threats
 
-The next section covers additional package ecosystems including [NuGet, RubyGems, and Go Modules](other-ecosystems.md).
+The next section covers additional package ecosystems including [Other Ecosystems & Developer Protection](other-ecosystems.md).

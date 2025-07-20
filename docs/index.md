@@ -131,6 +131,7 @@ These attack methods have been employed in several high-profile supply chain att
 ## Recent Major Supply Chain Attacks
 
 !!! security "Recent Attacks"
+    - <span data-security-status="vulnerable">**npm Token Compromise (2024)**</span> - JounQin's token compromised affecting eslint-config-prettier and other packages with 100M+ weekly downloads
     - <span data-security-status="vulnerable">**SolarWinds (2020)**</span> - Attackers inserted malicious code into software updates
     - <span data-security-status="vulnerable">**Log4Shell (2021)**</span> - Critical vulnerability in widely used logging library
     - <span data-security-status="vulnerable">**Codecov (2021)**</span> - Compromised bash uploader script affecting CI environments
@@ -146,7 +147,8 @@ These attacks demonstrate the critical importance of securing every link in your
 
 To begin securing your software supply chain, start with these essential steps:
 
-1. Create a [Software Bill of Materials (SBOM)](secure-development/sbom.md)
-2. Implement [dependency management practices](secure-development/dependency-management.md)
-3. Secure your [CI/CD pipeline](ci-cd-security/pipeline-security.md)
-4. Learn about the [SLSA Framework](best-practices/standards.md)
+1. **Understand Package Ecosystem Risks**: Review [Package Ecosystem Security](package-ecosystems/overview.md) to understand the specific vulnerabilities in npm, PyPI, Maven, and other ecosystems
+2. **Create an Inventory**: Generate a [Software Bill of Materials (SBOM)](secure-development/sbom.md)
+3. **Implement Dependency Security**: Follow [dependency management practices](secure-development/dependency-management.md)
+4. **Secure Your Pipeline**: Protect your [CI/CD pipeline](ci-cd-security/pipeline-security.md)
+5. **Adopt Standards**: Learn about the [SLSA Framework](best-practices/standards.md)

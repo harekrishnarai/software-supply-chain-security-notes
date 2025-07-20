@@ -246,9 +246,7 @@ This overview provides the foundation for understanding package ecosystem securi
 - [npm/Node.js Ecosystem Security](npm-security.md)
 - [PyPI/Python Ecosystem Security](pypi-security.md)  
 - [Maven/Java Ecosystem Security](maven-security.md)
-- [NuGet/.NET Ecosystem Security](nuget-security.md)
-- [RubyGems Ecosystem Security](rubygems-security.md)
-- [Go Modules Ecosystem Security](go-security.md)
+- [Other Ecosystems (NuGet, RubyGems, Go) & Protection Strategies](other-ecosystems.md)
 
 Each section covers installation processes, specific vulnerabilities, attack vectors, and protection strategies tailored to that ecosystem.
 
