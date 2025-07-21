@@ -53,8 +53,9 @@ graph TD
 
 ### ISO/IEC 27001 {#isoiec-27001}
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
+
 ISO/IEC 27001 is an international standard for information security management systems (ISMS). While not specifically designed for software supply chain security, it provides a comprehensive framework that can be applied to secure the various components of software supply chains.
 
 #### Key Aspects for Supply Chain Security:
@@ -68,26 +69,29 @@ ISO/IEC 27001 is an international standard for information security management s
 2. Develop security controls based on identified risks
 3. Implement a continuous monitoring and improvement process
 4. Seek certification through an accredited body
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
-<div class="security-info-box">
-<strong>Implementation Guidance</strong>
-<ul>
-<li>Begin with scope definition centered on supply chain elements</li>
-<li>Develop specific controls for third-party code assessment</li>
-<li>Establish explicit supplier security requirements</li>
-<li>Create documentation for the verification of external components</li>
-<li>Implement monitoring solutions for supply chain indicators</li>
-</ul>
+<div class="security-grid-item security-grid-item-side" markdown="1">
+<div class="security-info-box" markdown="1">
+
+**Implementation Guidance**
+
+- Begin with scope definition centered on supply chain elements
+- Develop specific controls for third-party code assessment
+- Establish explicit supplier security requirements
+- Create documentation for the verification of external components
+- Implement monitoring solutions for supply chain indicators
+
 </div>
 </div>
 </div>
 
 ### NIST Cybersecurity Framework {#nist-csf}
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
+
 The NIST Cybersecurity Framework (CSF) provides a policy framework for private sector organizations to assess and improve their ability to prevent, detect, and respond to cyber attacks. The framework is structured around five core functions:
 
 1. **Identify**: Develop an organizational understanding of risks to systems, assets, data, and capabilities
@@ -105,18 +109,21 @@ The NIST CSF can be mapped to software supply chain security as follows:
 - **Detect**: Deploy monitoring for unauthorized changes, suspicious build patterns, or compromised dependencies
 - **Respond**: Establish protocols for addressing identified supply chain compromises
 - **Recover**: Create backup systems and restoration procedures for clean rebuilds
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
-<div class="security-info-box">
-<strong>CSF Implementation Tiers</strong>
-<p>Organizations can assess their maturity in supply chain security using the CSF tiers:</p>
-<ul>
-<li><strong>Tier 1 (Partial)</strong>: Ad-hoc processes, limited awareness</li>
-<li><strong>Tier 2 (Risk Informed)</strong>: Risk management but not organization-wide</li>
-<li><strong>Tier 3 (Repeatable)</strong>: Formal policies, integrated throughout the organization</li>
-<li><strong>Tier 4 (Adaptive)</strong>: Continuous improvement, proactive security posture</li>
-</ul>
+<div class="security-grid-item security-grid-item-side" markdown="1">
+<div class="security-info-box" markdown="1">
+
+**CSF Implementation Tiers**
+
+Organizations can assess their maturity in supply chain security using the CSF tiers:
+
+- **Tier 1 (Partial)**: Ad-hoc processes, limited awareness
+- **Tier 2 (Risk Informed)**: Risk management but not organization-wide
+- **Tier 3 (Repeatable)**: Formal policies, integrated throughout the organization
+- **Tier 4 (Adaptive)**: Continuous improvement, proactive security posture
+
 </div>
 </div>
 </div>
@@ -234,42 +241,28 @@ ISO/IEC 27036 is a multi-part standard focused specifically on information secur
 
 The OWASP Top Ten identifies the most critical web application security risks. While focusing broadly on application security, several categories directly address supply chain concerns:
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
-<table>
-<thead>
-<tr>
-<th>OWASP Category</th>
-<th>Supply Chain Security Relevance</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>A06:2021 - Vulnerable and Outdated Components</strong></td>
-<td>Directly addresses dependency management, a core supply chain concern</td>
-</tr>
-<tr>
-<td><strong>A08:2021 - Software and Data Integrity Failures</strong></td>
-<td>Covers CI/CD pipeline security, code signing, and update verification</td>
-</tr>
-<tr>
-<td><strong>A09:2021 - Security Logging and Monitoring Failures</strong></td>
-<td>Critical for detecting potential supply chain compromises</td>
-</tr>
-</tbody>
-</table>
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
+
+| OWASP Category | Supply Chain Security Relevance |
+|---|---|
+| **A06:2021 - Vulnerable and Outdated Components** | Directly addresses dependency management, a core supply chain concern |
+| **A08:2021 - Software and Data Integrity Failures** | Covers CI/CD pipeline security, code signing, and update verification |
+| **A09:2021 - Security Logging and Monitoring Failures** | Critical for detecting potential supply chain compromises |
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
-<div class="security-info-box">
-<strong>Implementation Tips</strong>
-<ul>
-<li>Run automated tools to scan for vulnerable dependencies</li>
-<li>Implement artifact signing to ensure integrity</li>
-<li>Establish monitoring for unusual build patterns</li>
-<li>Maintain an inventory of all third-party components</li>
-<li>Set up alerting for any unauthorized changes to build scripts</li>
-</ul>
+<div class="security-grid-item security-grid-item-side" markdown="1">
+<div class="security-info-box" markdown="1">
+
+**Implementation Tips**
+
+- Run automated tools to scan for vulnerable dependencies
+- Implement artifact signing to ensure integrity
+- Establish monitoring for unusual build patterns
+- Maintain an inventory of all third-party components
+- Set up alerting for any unauthorized changes to build scripts
+
 </div>
 </div>
 </div>
@@ -328,8 +321,8 @@ The General Data Protection Regulation (GDPR) addresses data protection and priv
 
 The Statement on Standards for Attestation Engagements (SSAE) 18 and the resulting SOC 2 reports provide assurance about controls related to security, availability, processing integrity, confidentiality, and privacy.
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
 
 #### Supply Chain Security Considerations:
 
@@ -344,19 +337,21 @@ The Statement on Standards for Attestation Engagements (SSAE) 18 and the resulti
 - **Availability**: Ensuring the reliability of dependency sources
 - **Processing Integrity**: Ensuring build processes operate as expected
 - **Confidentiality**: Protecting sensitive information in the supply chain
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
-<div class="security-info-box">
-<strong>SOC 2 Assessment Areas for Supply Chain</strong>
-<ul>
-<li>Code repository access controls</li>
-<li>Build server security measures</li>
-<li>Dependency management processes</li>
-<li>Artifact repository security</li>
-<li>Development environment isolation</li>
-<li>Third-party code review procedures</li>
-</ul>
+<div class="security-grid-item security-grid-item-side" markdown="1">
+<div class="security-info-box" markdown="1">
+
+**SOC 2 Assessment Areas for Supply Chain**
+
+- Code repository access controls
+- Build server security measures
+- Dependency management processes
+- Artifact repository security
+- Development environment isolation
+- Third-party code review procedures
+
 </div>
 </div>
 </div>

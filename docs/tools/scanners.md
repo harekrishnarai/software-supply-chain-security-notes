@@ -52,8 +52,8 @@ graph TD
 
 ## Static Application Security Testing (SAST) {#static-application-security-testing-sast}
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
 
 SAST tools analyze source code, bytecode, or binary files without executing the application to identify security vulnerabilities, coding flaws, and potential weaknesses.
 
@@ -72,19 +72,21 @@ SAST tools analyze source code, bytecode, or binary files without executing the 
 - **Integration**: Embeds directly into development workflows and IDEs
 - **Customization**: Rules can be tailored to organization-specific security policies
 - **Automation**: Easily incorporated into CI/CD pipelines
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
-<div class="security-info-box">
-<strong>Top SAST Tools</strong>
-<ul>
-<li><strong>SonarQube</strong>: Open-source platform for continuous code quality and security inspection</li>
-<li><strong>Checkmarx</strong>: Enterprise-grade solution with broad language support and detailed findings</li>
-<li><strong>Fortify</strong>: Comprehensive static analysis with integration into development tools</li>
-<li><strong>Semgrep</strong>: Lightweight, fast, open-source static analysis that's easy to customize</li>
-<li><strong>GitHub CodeQL</strong>: Semantic code analysis engine that treats code as data</li>
-<li><strong>Snyk Code</strong>: Developer-first SAST with real-time feedback</li>
-</ul>
+<div class="security-grid-item security-grid-item-side" markdown="1">
+<div class="security-info-box" markdown="1">
+
+**Top SAST Tools**
+
+- **SonarQube**: Open-source platform for continuous code quality and security inspection
+- **Checkmarx**: Enterprise-grade solution with broad language support and detailed findings
+- **Fortify**: Comprehensive static analysis with integration into development tools
+- **Semgrep**: Lightweight, fast, open-source static analysis that's easy to customize
+- **GitHub CodeQL**: Semantic code analysis engine that treats code as data
+- **Snyk Code**: Developer-first SAST with real-time feedback
+
 </div>
 </div>
 </div>
@@ -292,8 +294,8 @@ unzip dc.zip
 
 ## Container Security Scanners {#container-security-scanners}
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
 
 Container security scanners inspect container images for vulnerabilities, malware, misconfigurations, and compliance issues. These tools are essential for securing containerized applications as they move through the supply chain.
 
@@ -314,9 +316,11 @@ Container security scanners inspect container images for vulnerabilities, malwar
 4. **Docker Scout**: Native scanning for Docker images
 5. **Sysdig Secure**: Runtime security and compliance for containers and Kubernetes
 6. **Prisma Cloud/Twistlock**: Advanced container security platform
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
+<div class="security-grid-item security-grid-item-side" markdown="1">
+
 ```bash
 # Example: Scanning with Trivy
 # Install Trivy
@@ -339,6 +343,7 @@ trivy image --exit-code 1 \
   --severity HIGH,CRITICAL \
   mycompany/myapp:latest
 ```
+
 </div>
 </div>
 
@@ -451,8 +456,9 @@ IaC scanners analyze infrastructure definitions for security issues before deplo
 
 ### Popular IaC Scanning Tools
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
+
 - **Checkov**: Open-source IaC scanner with wide coverage of cloud resources and frameworks
 - **Terrascan**: Scans Terraform, Kubernetes, Helm, and Kustomize for security issues
 - **tfsec**: Security scanner for Terraform code with customizable rules
@@ -461,9 +467,11 @@ IaC scanners analyze infrastructure definitions for security issues before deplo
 - **Bridgecrew Prisma Cloud**: Cloud infrastructure security across build and runtime
 
 ### Implementation Example: Checkov IaC Scanning
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
+<div class="security-grid-item security-grid-item-side" markdown="1">
+
 ```bash
 # Install Checkov
 pip install checkov
@@ -501,6 +509,7 @@ EOL
 # Run with custom policy
 checkov -d /path/to/terraform/files --external-checks-dir .
 ```
+
 </div>
 </div>
 
@@ -577,8 +586,8 @@ jobs:
 
 ## Dynamic Application Security Testing (DAST) {#dynamic-application-security-testing}
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
 
 DAST tools test running applications by simulating attacks to identify security vulnerabilities that may not be apparent in static code. These tools are particularly valuable for finding issues that only appear at runtime.
 
@@ -598,19 +607,21 @@ DAST tools test running applications by simulating attacks to identify security 
 - **Authorization Problems**: Insecure direct object references, missing access controls
 - **Security Misconfigurations**: Default installations, error handling, insecure HTTP headers
 - **Sensitive Data Exposure**: Unencrypted data transmission, improper certificate validation
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
-<div class="security-info-box">
-<strong>Popular DAST Tools</strong>
-<ul>
-<li><strong>OWASP ZAP</strong>: Free, open-source security testing tool with active community</li>
-<li><strong>Burp Suite</strong>: Industry-standard tool for web application security testing</li>
-<li><strong>Acunetix</strong>: Automated vulnerability scanner with advanced crawling</li>
-<li><strong>Netsparker</strong>: DAST with proof-based scanning to reduce false positives</li>
-<li><strong>AppSpider</strong>: DAST solution supporting complex authentication and modern web apps</li>
-<li><strong>Rapid7 InsightAppSec</strong>: Cloud-based dynamic application security testing</li>
-</ul>
+<div class="security-grid-item security-grid-item-side" markdown="1">
+<div class="security-info-box" markdown="1">
+
+**Popular DAST Tools**
+
+- **OWASP ZAP**: Free, open-source security testing tool with active community
+- **Burp Suite**: Industry-standard tool for web application security testing
+- **Acunetix**: Automated vulnerability scanner with advanced crawling
+- **Netsparker**: DAST with proof-based scanning to reduce false positives
+- **AppSpider**: DAST solution supporting complex authentication and modern web apps
+- **Rapid7 InsightAppSec**: Cloud-based dynamic application security testing
+
 </div>
 </div>
 </div>
@@ -781,8 +792,8 @@ Effective management of scanner results is crucial for maintaining security with
 
 ### Best Practices for Scanner Result Management
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
 
 1. **Establish Severity Thresholds**
    - Define clear criteria for critical, high, medium, and low severity issues
@@ -803,9 +814,11 @@ Effective management of scanner results is crucial for maintaining security with
    - Include examples and fix guidance with reported issues
    - Link to internal documentation and secure coding practices
    - Offer multiple remediation options where possible
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
+<div class="security-grid-item security-grid-item-side" markdown="1">
+
 ```java
 // Example vulnerability management policy in code
 public class VulnerabilityPolicy {
@@ -834,6 +847,7 @@ public class VulnerabilityPolicy {
     }
 }
 ```
+
 </div>
 </div>
 
@@ -1019,8 +1033,8 @@ jobs:
 
 ## Emerging Trends in Software Supply Chain Scanning {#emerging-trends}
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
 
 The landscape of security scanning continues to evolve with new technologies and approaches:
 
@@ -1043,21 +1057,22 @@ The landscape of security scanning continues to evolve with new technologies and
    - Moving beyond point-in-time scanning
    - Real-time monitoring for new vulnerabilities
    - Continuous assessment of deployed artifacts
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
-<div class="security-info-box">
-<strong>Tool Integration Projects</strong>
+<div class="security-grid-item security-grid-item-side" markdown="1">
+<div class="security-info-box" markdown="1">
 
-<p>Several open-source projects aim to standardize scanner integration:</p>
+**Tool Integration Projects**
 
-<ul>
-<li><strong>OWASP DefectDojo</strong>: Vulnerability management platform that consolidates findings from multiple tools</li>
-<li><strong>OWASP Dependency-Track</strong>: SBOM analysis platform with vulnerability tracking</li>
-<li><strong>OpenSCAP</strong>: Standards-based compliance verification</li>
-<li><strong>SARIF</strong>: Standard format for static analysis tool results</li>
-<li><strong>CycloneDX & SPDX</strong>: Standard formats for SBOM generation and sharing</li>
-</ul>
+Several open-source projects aim to standardize scanner integration:
+
+- **OWASP DefectDojo**: Vulnerability management platform that consolidates findings from multiple tools
+- **OWASP Dependency-Track**: SBOM analysis platform with vulnerability tracking
+- **OpenSCAP**: Standards-based compliance verification
+- **SARIF**: Standard format for static analysis tool results
+- **CycloneDX & SPDX**: Standard formats for SBOM generation and sharing
+
 </div>
 </div>
 </div>

