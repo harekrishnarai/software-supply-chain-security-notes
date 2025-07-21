@@ -15,3 +15,29 @@ _book
 *.mobi
 *.pdf
 site/
+
+# Python virtual environment
+venv/
+env/
+.venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# MkDocs
+.cache/
+site/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# GitHub Actions
+.github/workflows/*.log
