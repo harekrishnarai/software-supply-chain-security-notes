@@ -52,7 +52,7 @@ graph TD
 
 ## Recent High-Profile Attacks
 
-### npm Token Compromise (2024)
+### npm Token Compromise (Recent)
 
 The recent compromise of maintainer JounQin's npm token demonstrates the severe impact of package ecosystem attacks:
 

@@ -131,7 +131,7 @@ These attack methods have been employed in several high-profile supply chain att
 ## Recent Major Supply Chain Attacks
 
 !!! security "Recent Attacks"
-    - <span data-security-status="vulnerable">**npm Token Compromise (2024)**</span> - JounQin's token compromised affecting eslint-config-prettier and other packages with 100M+ weekly downloads
+    - <span data-security-status="vulnerable">**npm Token Compromise (Recent)**</span> - JounQin's token compromised affecting eslint-config-prettier and other packages with 100M+ weekly downloads
     - <span data-security-status="vulnerable">**SolarWinds (2020)**</span> - Attackers inserted malicious code into software updates
     - <span data-security-status="vulnerable">**Log4Shell (2021)**</span> - Critical vulnerability in widely used logging library
     - <span data-security-status="vulnerable">**Codecov (2021)**</span> - Compromised bash uploader script affecting CI environments

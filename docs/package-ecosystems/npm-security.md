@@ -55,7 +55,7 @@ sequenceDiagram
 
 ## Recent Security Incidents
 
-### JounQin npm Token Compromise (2024)
+### JounQin npm Token Compromise (Recent)
 
 The recent compromise of maintainer JounQin's npm authentication token illustrates the ecosystem's vulnerabilities:
 
